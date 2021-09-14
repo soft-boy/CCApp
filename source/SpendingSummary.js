@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View } from 'react-native';
+import { View, Dimensions } from 'react-native';
 import styled from '@emotion/native';
 import BarChart from './util/BarChart'
 import colors from './util/colors'
@@ -7,8 +7,11 @@ import Text from './util/Text'
 import { ArrowsExpandIcon } from "react-native-heroicons/outline";
 import Pressable from './util/Pressable';
 
+// const windowWidth = Dimensions.get('window').width;
+
 const Summary = styled.View`
   background-color: white;
+  width: 335px;
   margin: 60px 20px 20px 20px;
   padding: 16px 12px;
   height: 315px;
@@ -37,34 +40,31 @@ const RowSpaceBetween = styled.View`
   justify-content: space-between;
 `
 
-export default () => {
+const formatMoney = (money) => {
+  return new Intl.NumberFormat('en-US',
+    { style: 'currency', currency: 'USD' }
+  ).format(money)
+}
+
+export default (props) => {
   return (
     <Summary>
       <RowSpaceBetween>
-        <Text style={titleStyle}>Aug 2021</Text>
+        <Text style={titleStyle}>{props.item.month}</Text>
         {/* <Pressable><ArrowsExpandIcon color="#999999" size={18} /></Pressable> */}
       </RowSpaceBetween>
       <Total>
-        <Text style={totalStyle}>$1,090.58</Text>
+        <Text style={totalStyle}>{formatMoney(props.item.totalSpending)}</Text>
       </Total>
       <RowSpaceBetween>
         <Text>Total Spending</Text>
         <Pressable>
-          <Text style={{color: '#2274A5'}}>28 Transactions</Text>
+          <Text style={{color: '#2274A5'}}>{props.item.transactionCount} Transactions</Text>
         </Pressable>
       </RowSpaceBetween>
-      <SpendChart />
+      <SpendChart data={props.data} />
     </Summary>
   )
-}
-
-const data = {
-  labels: ["29-4", "5-11", "12-18", "29-25", "26-2"],
-  datasets: [
-    {
-      data: [20, 45, 28, 80, 99]
-    }
-  ]
 }
 
 const chartConfig = {
@@ -89,7 +89,7 @@ const SpendChart = (props) => {
   return (
     <View style={{flex: 1}} onLayout={handleOnLayout}>
       <BarChart
-        data={data}
+        data={props.data}
         width={width}
         height={height}
         yAxisLabel="$"

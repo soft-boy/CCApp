@@ -3,7 +3,7 @@ import { View, Image, ScrollView } from 'react-native';
 import styled, {css} from '@emotion/native';
 import { Dimensions } from 'react-native';
 import colors from './util/colors'
-import SpendingSummary from './SpendingSummary';
+import SpendingSummaryCarousel from './SpendingSummaryCarousel';
 import TransactionsList from './TransactionsList';
 import { LibraryIcon, DotsVerticalIcon } from "react-native-heroicons/outline";
 import Pressable from './util/Pressable';
@@ -64,7 +64,7 @@ export default ({ navigation }) => {
               <DotsVerticalIcon color="white" />
             </Pressable>
           </View>
-          <SpendingSummary />
+          <SpendingSummaryCarousel />
           <TransactionsList />
         </Content>
       </Container>
