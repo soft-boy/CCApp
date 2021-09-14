@@ -29,7 +29,7 @@ const bgImageStyle = {
 
 const spacerHeight = 1000;
 
-export default () => {
+export default ({ navigation }) => {
   return (
     <ScrollView style={css`background-color: ${colors.beige}`}>
       <Container>
@@ -46,7 +46,9 @@ export default () => {
         <Image style={bgImageStyle} source={require('./sunset_bg.png')} />
         <Content>
           <View style={{ marginTop: 48, marginRight: 20, alignItems: 'flex-end' }}>
-            <Pressable><LibraryIcon color="white" /></Pressable>
+            <Pressable onPress={() => navigation.navigate('Details')}>
+              <LibraryIcon color="white" />
+            </Pressable>
           </View>
           <SpendingSummary />
           <TransactionsList />
