@@ -40,7 +40,7 @@ export default () => {
     <Container>
       <RowSpaceBetween>
         <Text style={titleStyle}>Recent Transactions</Text>
-        <Pressable><SearchIcon color="#999999" size={18} /></Pressable>
+        {/* <Pressable><SearchIcon color="#999999" size={18} /></Pressable> */}
       </RowSpaceBetween>
       <Gap />
       <Item>

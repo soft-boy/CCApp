@@ -5,6 +5,8 @@ import { Dimensions } from 'react-native';
 import colors from './util/colors'
 import SpendingSummary from './SpendingSummary';
 import TransactionsList from './TransactionsList';
+import { LibraryIcon } from "react-native-heroicons/outline";
+import Pressable from './util/Pressable';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -43,6 +45,9 @@ export default () => {
         />
         <Image style={bgImageStyle} source={require('./sunset_bg.png')} />
         <Content>
+          <View style={{ marginTop: 42, marginRight: 20, alignItems: 'flex-end' }}>
+            <Pressable><LibraryIcon color="white" /></Pressable>
+          </View>
           <SpendingSummary />
           <TransactionsList />
         </Content>

@@ -9,7 +9,7 @@ import Pressable from './util/Pressable';
 
 const Summary = styled.View`
   background-color: white;
-  margin: 125px 20px 20px 20px;
+  margin: 60px 20px 20px 20px;
   padding: 16px 12px;
   height: 315px;
   border-radius: 5px;
@@ -42,7 +42,7 @@ export default () => {
     <Summary>
       <RowSpaceBetween>
         <Text style={titleStyle}>Aug 2021</Text>
-        <Pressable><ArrowsExpandIcon color="#999999" size={18} /></Pressable>
+        {/* <Pressable><ArrowsExpandIcon color="#999999" size={18} /></Pressable> */}
       </RowSpaceBetween>
       <Total>
         <Text style={totalStyle}>$1,090.58</Text>
