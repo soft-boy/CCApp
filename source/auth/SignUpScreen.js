@@ -10,6 +10,8 @@ const InputStyle = {
 }
 
 export default ({ navigation }) => {
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -17,6 +19,18 @@ export default ({ navigation }) => {
 
   return (
     <View>
+      <TextInput
+        style={InputStyle}
+        placeholder="First Name"
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        style={InputStyle}
+        placeholder="Last Name"
+        value={lastName}
+        onChangeText={setLastName}
+      />
       <TextInput
         style={InputStyle}
         placeholder="Email"
