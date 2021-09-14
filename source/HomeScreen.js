@@ -60,7 +60,7 @@ export default ({ navigation }) => {
               <LibraryIcon color="white" />
             </Pressable>
             <Gap />
-            <Pressable onPress={() => navigation.navigate('Details')}>
+            <Pressable onPress={() => navigation.navigate('Settings')}>
               <DotsVerticalIcon color="white" />
             </Pressable>
           </View>
