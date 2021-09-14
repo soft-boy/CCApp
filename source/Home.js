@@ -3,10 +3,8 @@ import { View, Image, ScrollView } from 'react-native';
 import styled, {css} from '@emotion/native';
 import { Dimensions } from 'react-native';
 import colors from './util/colors'
-import Text from './util/Text'
 import SpendingSummary from './SpendingSummary';
-import { SearchIcon } from "react-native-heroicons/outline";
-import Pressable from './util/Pressable';
+import TransactionsList from './TransactionsList';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -19,30 +17,12 @@ const Content = styled.View`
   align-items: stretch;
 `
 
-const TransactionList = styled.View`
-  background-color: white;
-  margin: 20px;
-  padding: 16px 12px;
-  height: 600px;
-  border-radius: 5px;
-` 
-
-const RowSpaceBetween = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-`
-
 const bgImageStyle = {
   width: windowWidth,
   height: 0.6*windowWidth,
   position: 'absolute',
   top: -35,
   zIndex: -1
-}
-
-const titleStyle = {
-  fontSize: 18,
-  fontWeight: 'bold',
 }
 
 const spacerHeight = 1000;
@@ -64,12 +44,7 @@ export default () => {
         <Image style={bgImageStyle} source={require('./sunset_bg.png')} />
         <Content>
           <SpendingSummary />
-          <TransactionList>
-            <RowSpaceBetween>
-              <Text style={titleStyle}>Recent Transactions</Text>
-              <Pressable><SearchIcon color="#999999" size={18} /></Pressable>
-            </RowSpaceBetween>
-          </TransactionList>
+          <TransactionsList />
         </Content>
       </Container>
     </ScrollView>
