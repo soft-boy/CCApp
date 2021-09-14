@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import HomeScreen from './source/HomeScreen'
 import SignInScreen from './source/auth/SignInScreen'

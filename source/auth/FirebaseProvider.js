@@ -1,4 +1,5 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
+import * as SecureStore from 'expo-secure-store';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
 
@@ -20,20 +21,36 @@ export const FirebaseContext = createContext();
 export default (props) => {
   const [user, setUser] = useState(null)
 
+  const getStoredUser = async () => {
+    storedUser = await SecureStore.getItemAsync('user');
+    console.log(storedUser)
+    setUser(JSON.parse(storedUser))
+  }
+  
+  const setStoredUser = (user) => {
+    console.log(JSON.stringify(user))
+    return SecureStore.setItemAsync('user', JSON.stringify(user));
+  }
+
+  useEffect(() => {
+    getStoredUser()
+  }, [])
+
   const signUp = async (email, password) => {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+    setStoredUser(userCredential.user)
     setUser(userCredential.user)
   }
 
   const signIn = async (email, password) => {
-    console.log(email, password)
     const userCredential = await signInWithEmailAndPassword(auth, email, password)
-    console.log(userCredential.user)
+    setStoredUser(userCredential.user)
     setUser(userCredential.user)
   }
 
   const logOut = async () => {
     await signOut(auth)
+    setStoredUser(null)
     setUser(null)
   }
 
