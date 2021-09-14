@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, Pressable } from 'react-native';
+import { View } from 'react-native';
 import styled from '@emotion/native';
 import BarChart from './util/BarChart'
 import colors from './util/colors'
 import Text from './util/Text'
+import { ArrowsExpandIcon } from "react-native-heroicons/outline";
+import Pressable from './util/Pressable';
 
 const Summary = styled.View`
   background-color: white;
@@ -40,19 +42,14 @@ export default () => {
     <Summary>
       <RowSpaceBetween>
         <Text style={titleStyle}>Aug 2021</Text>
-        <Text>expand</Text>
+        <Pressable><ArrowsExpandIcon color="#999999" size={18} /></Pressable>
       </RowSpaceBetween>
       <Total>
         <Text style={totalStyle}>$1,090.58</Text>
       </Total>
       <RowSpaceBetween>
         <Text>Total Spending</Text>
-        <Pressable
-          style={({ pressed }) => ({
-              opacity: pressed ? 0.3 : 1
-            })
-          }
-        >
+        <Pressable>
           <Text style={{color: '#2274A5'}}>28 Transactions</Text>
         </Pressable>
       </RowSpaceBetween>

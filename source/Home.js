@@ -1,10 +1,12 @@
 import React from 'react';
-import { Image, ScrollView } from 'react-native';
+import { View, Image, ScrollView } from 'react-native';
 import styled, {css} from '@emotion/native';
 import { Dimensions } from 'react-native';
 import colors from './util/colors'
 import Text from './util/Text'
 import SpendingSummary from './SpendingSummary';
+import { SearchIcon } from "react-native-heroicons/outline";
+import Pressable from './util/Pressable';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -43,17 +45,29 @@ const titleStyle = {
   fontWeight: 'bold',
 }
 
+const spacerHeight = 1000;
+
 export default () => {
   return (
-    <ScrollView style={css`background-color: #EE5644`}>
+    <ScrollView style={css`background-color: ${colors.beige}`}>
       <Container>
+        <View 
+          style={{
+            backgroundColor: '#EE5644',
+            height: spacerHeight,
+            position: 'absolute',
+            top: -spacerHeight,
+            left: 0,
+            right: 0,
+          }} 
+        />
         <Image style={bgImageStyle} source={require('./sunset_bg.png')} />
         <Content>
           <SpendingSummary />
           <TransactionList>
             <RowSpaceBetween>
               <Text style={titleStyle}>Recent Transactions</Text>
-              <Text>search</Text>
+              <Pressable><SearchIcon color="#999999" size={18} /></Pressable>
             </RowSpaceBetween>
           </TransactionList>
         </Content>

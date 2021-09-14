@@ -4982,6 +4982,11 @@ react-is@^17.0.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
+react-native-heroicons@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-heroicons/-/react-native-heroicons-2.0.1.tgz#d57b725363c2a14dfb205b3242aa88fd1522f023"
+  integrity sha512-6oxZZJDPSZp6ZKvoOXx7sZpjuEB6oJvgf09GpYLx0PjC6FNhMY69ISraSH1iNMtp0CZ+XLXj0n9d+Ff6Un7KIg==
+
 react-native-safe-area-context@3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-context/-/react-native-safe-area-context-3.2.0.tgz#06113c6b208f982d68ab5c3cebd199ca93db6941"
