@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native';
 import colors from './util/colors'
 import SpendingSummary from './SpendingSummary';
 import TransactionsList from './TransactionsList';
-import { LibraryIcon } from "react-native-heroicons/outline";
+import { LibraryIcon, DotsVerticalIcon } from "react-native-heroicons/outline";
 import Pressable from './util/Pressable';
 
 const windowWidth = Dimensions.get('window').width;
@@ -17,6 +17,10 @@ const Container = styled.View`
 
 const Content = styled.View`
   align-items: stretch;
+`
+
+const Gap = styled.View`
+  width: 18px;
 `
 
 const bgImageStyle = {
@@ -45,9 +49,19 @@ export default ({ navigation }) => {
         />
         <Image style={bgImageStyle} source={require('./sunset_bg.png')} />
         <Content>
-          <View style={{ marginTop: 48, marginRight: 20, alignItems: 'flex-end' }}>
+          <View style={{
+              marginTop: 48,
+              marginRight: 20,
+              flexDirection: 'row',
+              justifyContent: 'flex-end'
+            }}
+          >
             <Pressable onPress={() => navigation.navigate('Details')}>
               <LibraryIcon color="white" />
+            </Pressable>
+            <Gap />
+            <Pressable onPress={() => navigation.navigate('Details')}>
+              <DotsVerticalIcon color="white" />
             </Pressable>
           </View>
           <SpendingSummary />
