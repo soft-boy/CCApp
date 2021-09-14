@@ -45,7 +45,7 @@ export default () => {
         />
         <Image style={bgImageStyle} source={require('./sunset_bg.png')} />
         <Content>
-          <View style={{ marginTop: 42, marginRight: 20, alignItems: 'flex-end' }}>
+          <View style={{ marginTop: 48, marginRight: 20, alignItems: 'flex-end' }}>
             <Pressable><LibraryIcon color="white" /></Pressable>
           </View>
           <SpendingSummary />
