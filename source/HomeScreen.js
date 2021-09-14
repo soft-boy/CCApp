@@ -56,7 +56,7 @@ export default ({ navigation }) => {
               justifyContent: 'flex-end'
             }}
           >
-            <Pressable onPress={() => navigation.navigate('Details')}>
+            <Pressable onPress={() => navigation.navigate('Accounts')}>
               <LibraryIcon color="white" />
             </Pressable>
             <Gap />

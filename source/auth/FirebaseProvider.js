@@ -19,16 +19,20 @@ const auth = getAuth();
 export const FirebaseContext = createContext();
 
 export default (props) => {
+  const [isGettingStoredUser, setIsGettingStoredUser] = useState(true)
   const [user, setUser] = useState(null)
 
   const getStoredUser = async () => {
-    storedUser = await SecureStore.getItemAsync('user');
-    console.log(storedUser)
-    setUser(JSON.parse(storedUser))
+    try {
+      storedUser = await SecureStore.getItemAsync('user');
+      setUser(JSON.parse(storedUser))
+    }
+    finally {
+      setIsGettingStoredUser(false)
+    }
   }
   
   const setStoredUser = (user) => {
-    console.log(JSON.stringify(user))
     return SecureStore.setItemAsync('user', JSON.stringify(user));
   }
 
@@ -58,6 +62,7 @@ export default (props) => {
     app,
     auth,
     user,
+    isGettingStoredUser,
     signUp,
     signIn,
     signOut: logOut,
