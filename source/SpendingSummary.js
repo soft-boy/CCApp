@@ -12,7 +12,7 @@ import Pressable from './util/Pressable';
 const Summary = styled.View`
   background-color: white;
   width: 335px;
-  margin: 60px 20px 20px 20px;
+  margin: 72px 20px 20px 20px;
   padding: 16px 12px;
   height: 315px;
   border-radius: 5px;
