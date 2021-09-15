@@ -9,6 +9,7 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FirebaseProvider, { FirebaseContext } from './source/auth/FirebaseProvider';
+import PlaidModal from './source/plaid/PlaidModal';
 import { View, Text, Button } from 'react-native'
 
 const Stack = createNativeStackNavigator();
@@ -45,9 +46,14 @@ const SettingsScreen = () => {
 
 const renderSignedInScreens = () => (
   <>
-    <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
-    <Stack.Screen name="Accounts" component={AccountsScreen} />
-    <Stack.Screen name="Settings" component={SettingsScreen} />
+    <Stack.Group>
+      <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
+      <Stack.Screen name="Accounts" component={AccountsScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+    </Stack.Group>
+    <Stack.Group screenOptions={{ presentation: 'modal' }}>
+      <Stack.Screen name="Link Account" component={PlaidModal} />
+    </Stack.Group>
   </>
 )
 
