@@ -44,18 +44,27 @@ export default (props) => {
         {/* <Pressable><SearchIcon color="#999999" size={18} /></Pressable> */}
       </RowSpaceBetween>
       <Gap />
-      {props.tx.map(renderTx)}   
+      {props.tx.map((tx) => renderTx(tx, props.navigation))}   
     </Container>
   )
 }
 
-const renderTx = (tx) => (
-  <Item>
-    <RowSpaceBetween>
-      <Text style={{fontWeight: 'bold', fontSize: 16,}}>{tx.merchant_name}</Text>
-      <Text style={{fontSize: 16,}}>{formatMoney(tx.amount)}</Text>
-    </RowSpaceBetween>
-    <Text style={{color: 'grey'}}>{tx.payment_channel}</Text>
-    <Text style={{color: 'grey'}}>{tx.date}</Text>
-  </Item>
-)
+const renderTx = (tx, navigation) => {
+  let txName = tx.merchant_name || tx.name
+  let txNameArr = txName.split(' ');
+  txNameArr = txNameArr.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+  txName = txNameArr.join(' ')
+
+  return (
+    <Pressable key={tx.transaction_id} onPress={() => navigation.navigate('Transaction', { tx })}>
+      <Item>
+        <RowSpaceBetween>
+          <Text style={{fontWeight: 'bold', fontSize: 16,}}>{txName}</Text>
+          <Text style={{fontSize: 16,}}>{formatMoney(tx.amount)}</Text>
+        </RowSpaceBetween>
+        <Text style={{color: 'grey'}}>{tx.payment_channel}</Text>
+        <Text style={{color: 'grey'}}>{tx.date}</Text>
+      </Item>
+    </Pressable>
+  )
+}

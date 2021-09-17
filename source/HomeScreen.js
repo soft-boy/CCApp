@@ -71,7 +71,7 @@ export default ({ navigation }) => {
             </Pressable>
           </View>
           <SpendingSummaryCarousel />
-          <TransactionsList tx={plaidTx} />
+          <TransactionsList tx={plaidTx} navigation={navigation} />
         </Content>
       </Container>
     </ScrollView>

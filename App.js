@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import HomeScreen from './source/HomeScreen'
+import TxScreen from './source/TxScreen'
 import SignInScreen from './source/auth/SignInScreen'
 import SignUpScreen from './source/auth/SignUpScreen'
 import AccountsScreen from './source/plaid/AccountsScreen';
@@ -50,6 +51,7 @@ const renderSignedInScreens = () => (
       <Stack.Screen options={{headerShown: false}} name="Home" component={HomeScreen} />
       <Stack.Screen name="Accounts" component={AccountsScreen} />
       <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Transaction" component={TxScreen} />
     </Stack.Group>
     <Stack.Group screenOptions={{ presentation: 'modal' }}>
       <Stack.Screen name="Link Account" component={PlaidModal} />
