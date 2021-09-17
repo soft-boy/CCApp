@@ -4,12 +4,13 @@ import styled from '@emotion/native';
 import { SearchIcon } from "react-native-heroicons/outline";
 import Text from './util/Text'
 import Pressable from './util/Pressable';
+import formatMoney from "./util/formatMoney";
 
 const Container = styled.View`
   background-color: white;
   margin: 20px;
   padding: 16px 12px;
-  height: 600px;
+  ${'' /* height: 600px; */}
   border-radius: 5px;
 ` 
 
@@ -19,7 +20,7 @@ const RowSpaceBetween = styled.View`
 `
 
 const Item = styled.View`
-  height: 72px;
+  height: 80px;
   background: white;
   border-bottom-width: 1px;
   border-bottom-color: 'rgb(211, 211, 211)';
@@ -35,7 +36,7 @@ const titleStyle = {
   fontWeight: 'bold',
 }
 
-export default () => {
+export default (props) => {
   return (
     <Container>
       <RowSpaceBetween>
@@ -43,38 +44,18 @@ export default () => {
         {/* <Pressable><SearchIcon color="#999999" size={18} /></Pressable> */}
       </RowSpaceBetween>
       <Gap />
-      <Item>
-        <RowSpaceBetween>
-          <Text style={{fontWeight: 'bold'}}>Trader Joe's</Text>
-          <Text>$20.62</Text>
-        </RowSpaceBetween>
-        <Text style={{color: 'grey'}}>Pending - Capitola, CA</Text>
-        <Text style={{color: 'grey'}}>7 hours ago</Text>
-      </Item>
-      <Item>
-        <RowSpaceBetween>
-          <Text style={{fontWeight: 'bold'}}>Trader Joe's</Text>
-          <Text>$72.30</Text>
-        </RowSpaceBetween>
-        <Text style={{color: 'grey'}}>Pending - Capitola, CA</Text>
-        <Text style={{color: 'grey'}}>7 hours ago</Text>
-      </Item>
-      <Item>
-        <RowSpaceBetween>
-          <Text style={{fontWeight: 'bold'}}>Proper Food</Text>
-          <Text>$21.73</Text>
-        </RowSpaceBetween>
-        <Text style={{color: 'grey'}}>Pending - San Francisco, CA</Text>
-        <Text style={{color: 'grey'}}>Monday</Text>
-      </Item>
-      <Item>
-        <RowSpaceBetween>
-          <Text style={{fontWeight: 'bold'}}>WeWork</Text>
-          <Text>$30.02</Text>
-        </RowSpaceBetween>
-        <Text style={{color: 'grey'}}>Card Number Used</Text>
-        <Text style={{color: 'grey'}}>Monday</Text>
-      </Item>
+      {props.tx.map(renderTx)}   
     </Container>
   )
 }
+
+const renderTx = (tx) => (
+  <Item>
+    <RowSpaceBetween>
+      <Text style={{fontWeight: 'bold', fontSize: 16,}}>{tx.merchant_name}</Text>
+      <Text style={{fontSize: 16,}}>{formatMoney(tx.amount)}</Text>
+    </RowSpaceBetween>
+    <Text style={{color: 'grey'}}>{tx.payment_channel}</Text>
+    <Text style={{color: 'grey'}}>{tx.date}</Text>
+  </Item>
+)

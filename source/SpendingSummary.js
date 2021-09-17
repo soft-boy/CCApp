@@ -6,6 +6,7 @@ import colors from './util/colors'
 import Text from './util/Text'
 import { ArrowsExpandIcon } from "react-native-heroicons/outline";
 import Pressable from './util/Pressable';
+import formatMoney from './util/formatMoney';
 
 // const windowWidth = Dimensions.get('window').width;
 
@@ -39,12 +40,6 @@ const RowSpaceBetween = styled.View`
   flex-direction: row;
   justify-content: space-between;
 `
-
-const formatMoney = (money) => {
-  return new Intl.NumberFormat('en-US',
-    { style: 'currency', currency: 'USD' }
-  ).format(money)
-}
 
 export default (props) => {
   return (

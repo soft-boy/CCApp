@@ -7,6 +7,8 @@ import SpendingSummaryCarousel from './SpendingSummaryCarousel';
 import TransactionsList from './TransactionsList';
 import { LibraryIcon, DotsVerticalIcon } from "react-native-heroicons/outline";
 import Pressable from './util/Pressable';
+import usePlaidItems from './plaid/usePlaidItems';
+import usePlaidTx from './plaid/usePlaidTx';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -34,6 +36,10 @@ const bgImageStyle = {
 const spacerHeight = 1000;
 
 export default ({ navigation }) => {
+  const plaidItems = usePlaidItems()
+  const plaidTx = usePlaidTx(plaidItems)
+
+
   return (
     <ScrollView style={css`background-color: ${colors.beige}`}>
       <Container>
@@ -65,7 +71,7 @@ export default ({ navigation }) => {
             </Pressable>
           </View>
           <SpendingSummaryCarousel />
-          <TransactionsList />
+          <TransactionsList tx={plaidTx} />
         </Content>
       </Container>
     </ScrollView>

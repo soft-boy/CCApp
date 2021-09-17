@@ -1,19 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React from 'react'
 import { View, Text, Button } from 'react-native';
-import { FirebaseContext } from '../auth/FirebaseProvider';
+import usePlaidItems from './usePlaidItems';
 
 export default ({ navigation }) => {
-  const [plaidItems, setPlaidItems] = useState([])
-  const { getPlaidItems } = useContext(FirebaseContext)
-
-  useEffect(() => {
-    const fetchPlaidItems = async () => {
-      const items = await getPlaidItems()
-      setPlaidItems(items)
-    }
-
-    fetchPlaidItems()
-  }, [])
+  const plaidItems = usePlaidItems()
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
