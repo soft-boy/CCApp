@@ -5,6 +5,7 @@ import { SearchIcon } from "react-native-heroicons/outline";
 import Text from './util/Text'
 import Pressable from './util/Pressable';
 import formatMoney from "./util/formatMoney";
+import moment from "moment";
 
 const Container = styled.View`
   background-color: white;
@@ -62,8 +63,9 @@ const renderTx = (tx, navigation) => {
           <Text style={{fontWeight: 'bold', fontSize: 16,}}>{txName}</Text>
           <Text style={{fontSize: 16,}}>{formatMoney(tx.amount)}</Text>
         </RowSpaceBetween>
-        <Text style={{color: 'grey'}}>{tx.payment_channel}</Text>
-        <Text style={{color: 'grey'}}>{tx.date}</Text>
+        {/* TODO find way to fill in real card name */}
+        <Text style={{color: 'grey'}}>{tx.account_id[0] === 'a' ? 'Uber Card' : 'Chase Sapphire'}</Text>
+        <Text style={{color: 'grey'}}>{moment(tx.date).format('M/D/YY')}</Text>
       </Item>
     </Pressable>
   )
