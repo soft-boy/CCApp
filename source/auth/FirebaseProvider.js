@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect } from 'react'
 import * as SecureStore from 'expo-secure-store';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore/lite"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBlDkDTjyFSifCV3PTcVJ03-8klrT3pm24",
@@ -15,6 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
+const firestoreDb = getFirestore();
 
 export const FirebaseContext = createContext();
 
@@ -58,9 +60,32 @@ export default (props) => {
     setUser(null)
   }
 
+  const getPlaidItems = async () => {
+    // if (!user) throw 'user must be logged in to save to firestore'
+  
+    const items = await getDocs(collection(firestoreDb, "plaiditems"));
+
+    return items.docs.map((item) => item.data())
+  }
+
+  const savePlaidItem = async (itemId, accessToken) => {
+    if (!user) throw 'user must be logged in to save to firestore'
+
+    const item = await addDoc(collection(firestoreDb, "plaiditems"), {
+      uid: user.uid,
+      itemId,
+      accessToken,
+    });
+
+    return item.id
+  }
+
   const context = {
     app,
     auth,
+    firestoreDb,
+    getPlaidItems,
+    savePlaidItem,
     user,
     isGettingStoredUser,
     signUp,
