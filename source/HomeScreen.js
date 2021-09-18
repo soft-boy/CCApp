@@ -70,7 +70,7 @@ export default ({ navigation }) => {
               <DotsVerticalIcon color="white" />
             </Pressable>
           </View>
-          <SpendingSummaryCarousel />
+          <SpendingSummaryCarousel tx={plaidTx} />
           <TransactionsList tx={plaidTx} navigation={navigation} />
         </Content>
       </Container>

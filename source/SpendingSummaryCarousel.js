@@ -1,48 +1,9 @@
 import React, { useRef } from 'react';
 import { ScrollView } from 'react-native';
 import SpendingSummary from './SpendingSummary';
+import moment from 'moment';
 
-const DATA = [
-  {
-    month: 'July 2021',
-    totalSpending: 795.05,
-    transactionCount: 21,
-    data: {
-      labels: ["28-3", "4-10", "11-17", "18-24", "25-31"],
-      datasets: [
-        {
-          data: [60, 5, 88, 83, 43]
-        }
-      ]
-    }
-  },
-  {
-    month: 'August 2021',
-    totalSpending: 1260.34,
-    transactionCount: 33,
-    data: {
-      labels: ["1-7", "8-14", "15-21", "22-28", "29-4"],
-      datasets: [
-        {
-          data: [99, 46, 43, 80, 20]
-        }
-      ]
-    }
-  },
-  {
-    month: 'September 2021',
-    totalSpending: 1090.58,
-    transactionCount: 28,
-    data: {
-      labels: ["29-4", "5-11", "12-18", "29-25", "26-2"],
-      datasets: [
-        {
-          data: [20, 45, 28, 80, 99]
-        }
-      ]
-    }
-  },
-]
+const flattenArrays = (arrays) => [].concat.apply([], arrays)
 
 const renderItem = (item) => (
   <SpendingSummary
@@ -52,8 +13,9 @@ const renderItem = (item) => (
   />
 )
 
-export default () => {
+export default (props) => {
   const scrollRef = useRef(null);
+  const data = transformTxDate(props.tx)
 
   return (
     <ScrollView
@@ -65,7 +27,98 @@ export default () => {
       onContentSizeChange={() => scrollRef.current.scrollToEnd({ animated: false })}
       horizontal
     >
-      {DATA.map(renderItem)}
+      {data.map(renderItem)}
     </ScrollView>
   )
+}
+
+const bucketTxData = (txData) => {
+  const buckets = {}
+
+  txData.forEach((tx) => {
+    const prevSunday = moment(tx.date).startOf('week').format('MM/DD/YY')
+
+    if (Object.keys(buckets).includes(prevSunday)) {
+      buckets[prevSunday].push(tx)
+    }
+    else {
+      buckets[prevSunday] = [tx]
+    }
+  })
+
+  return buckets
+}
+
+const getTxMonths = (txData) => {
+  const today = moment()
+  const firstTx = txData[txData.length - 1]
+
+  const txMonths = []
+
+  let currentMonth = moment(firstTx.date).startOf('month')
+
+  while (currentMonth.diff(today) < 0) {
+    txMonths.push(currentMonth)
+    currentMonth = moment(currentMonth).add(1, 'month')
+  }
+
+  return txMonths
+}
+
+const getLabelFromBucket = (bucketMoment) => {
+  const labelDateStart = bucketMoment.date()
+  const labelDateEnd = moment(bucketMoment).add(6, 'd').date()
+
+  return `${labelDateStart}-${labelDateEnd}`
+}
+
+const getMonthBuckets = (monthMoment) => {
+  let buckets = []
+  let currentBucket = moment(monthMoment).startOf('week')
+  
+  buckets.push(currentBucket)
+  currentBucket = moment(currentBucket).add(1, 'week')
+
+  while (currentBucket.month() === monthMoment.month()) {
+    buckets.push(currentBucket)
+    currentBucket = moment(currentBucket).add(1, 'week')
+  }
+
+  return buckets
+}
+
+const getTxSum = (tx) => {
+  if (!tx) return 0
+
+  return tx.reduce((current, tx1) => tx1.amount + current, 0)
+}
+
+const transformTxDate = (txData) => {
+  if (!txData.length) return []
+
+  const bucketedData = bucketTxData(txData)
+  const months = getTxMonths(txData)
+
+  const data = months.map((month) => {
+    const monthBucketMoments = getMonthBuckets(month)
+    const monthBucketStrings = monthBucketMoments.map((bucket) => bucket.format('MM/DD/YY'))
+
+    const totalTx = flattenArrays(monthBucketStrings.map((bucketString) => bucketedData[bucketString] || []))
+
+    return {
+      month: `${month.format('MMMM')} ${month.format('YYYY')}`,
+      totalSpending: getTxSum(totalTx),
+      transactionCount: totalTx.length,
+      data: {
+        labels: monthBucketMoments.map(getLabelFromBucket),
+        datasets: [
+          {
+            data: monthBucketStrings.map((bucketString) => getTxSum(bucketedData[bucketString]))
+          }
+        ]
+      }
+    }
+  })
+
+  return data
 }

@@ -22,7 +22,6 @@ export default (plaidItems) => {
   React.useEffect(() => {
     const fetchAllTx = async () => {
       let allTx = await Promise.all(plaidItems.map((item) => fetchTx(item.accessToken)))
-      console.log(allTx)
       allTx = flattenArrays(allTx)
       allTx.sort((tx1, tx2) => moment(tx2.date).diff(moment(tx1.date)))
       allTx = allTx.filter((tx) => tx.amount > 0)
