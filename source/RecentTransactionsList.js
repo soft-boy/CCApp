@@ -35,7 +35,7 @@ const Gap = styled.View`
 `
 
 const titleStyle = {
-  fontSize: 22,
+  fontSize: 18,
   fontWeight: 'bold',
 }
 
