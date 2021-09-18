@@ -46,7 +46,7 @@ export default (props) => {
     <Summary>
       <RowSpaceBetween>
         <Text style={titleStyle}>{props.item.month}</Text>
-        {/* <Pressable><ArrowsExpandIcon color="#999999" size={18} /></Pressable> */}
+        <Pressable><ArrowsExpandIcon color="#999999" size={18} /></Pressable>
       </RowSpaceBetween>
       <Total>
         <Text style={totalStyle}>{formatMoney(props.item.totalSpending)}</Text>
