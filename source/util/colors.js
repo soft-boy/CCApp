@@ -4,4 +4,5 @@ export default {
   grannySmithAppleGreen: '#B5D99C',
   darkPurple: '#0F0326',
   fireOpal: '#E65F5C',
+  starCommandBlue: '#2274A5',
 }

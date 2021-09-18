@@ -4,7 +4,7 @@ import styled, {css} from '@emotion/native';
 import { Dimensions } from 'react-native';
 import colors from './util/colors'
 import SpendingSummaryCarousel from './SpendingSummaryCarousel';
-import TransactionsList from './TransactionsList';
+import RecentTransactionsList from './RecentTransactionsList';
 import { LibraryIcon, DotsVerticalIcon } from "react-native-heroicons/outline";
 import Pressable from './util/Pressable';
 import usePlaidItems from './plaid/usePlaidItems';
@@ -71,7 +71,7 @@ export default ({ navigation }) => {
             </Pressable>
           </View>
           <SpendingSummaryCarousel tx={plaidTx} />
-          <TransactionsList tx={plaidTx} navigation={navigation} />
+          <RecentTransactionsList tx={plaidTx} navigation={navigation} />
         </Content>
       </Container>
     </ScrollView>

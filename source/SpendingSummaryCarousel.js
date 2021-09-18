@@ -103,7 +103,8 @@ const transformTxDate = (txData) => {
     const monthBucketMoments = getMonthBuckets(month)
     const monthBucketStrings = monthBucketMoments.map((bucket) => bucket.format('MM/DD/YY'))
 
-    const totalTx = flattenArrays(monthBucketStrings.map((bucketString) => bucketedData[bucketString] || []))
+    let totalTx = flattenArrays(monthBucketStrings.map((bucketString) => bucketedData[bucketString] || []))
+    // totalTx = totalTx.filter((tx) => moment(tx.date).month() === month.month())
 
     return {
       month: `${month.format('MMMM')} ${month.format('YYYY')}`,

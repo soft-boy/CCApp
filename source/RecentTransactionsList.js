@@ -6,25 +6,27 @@ import Text from './util/Text'
 import Pressable from './util/Pressable';
 import formatMoney from "./util/formatMoney";
 import moment from "moment";
+import colors from "./util/colors";
 
 const Container = styled.View`
   background-color: white;
   margin: 20px;
   padding: 16px 12px;
-  ${'' /* height: 600px; */}
+  min-height: 300px;
   border-radius: 5px;
 ` 
 
 const RowSpaceBetween = styled.View`
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
 `
 
 const Item = styled.View`
   height: 80px;
   background: white;
   border-bottom-width: 1px;
-  border-bottom-color: 'rgb(211, 211, 211)';
+  border-bottom-color: 'rgb(230, 230, 230)';
   justify-content: center;
 `
 
@@ -33,7 +35,7 @@ const Gap = styled.View`
 `
 
 const titleStyle = {
-  fontSize: 18,
+  fontSize: 22,
   fontWeight: 'bold',
 }
 
@@ -42,10 +44,10 @@ export default (props) => {
     <Container>
       <RowSpaceBetween>
         <Text style={titleStyle}>Recent Transactions</Text>
-        {/* <Pressable><SearchIcon color="#999999" size={18} /></Pressable> */}
+        <Pressable><Text style={{ color: colors.starCommandBlue, fontWeight: 'bold' }}>View All</Text></Pressable>
       </RowSpaceBetween>
       <Gap />
-      {props.tx.map((tx) => renderTx(tx, props.navigation))}   
+      {props.tx.slice(0, 6).map((tx) => renderTx(tx, props.navigation))}   
     </Container>
   )
 }
